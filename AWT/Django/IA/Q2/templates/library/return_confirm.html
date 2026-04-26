@@ -1,0 +1,17 @@
+{% extends 'library/base.html' %}
+{% block content %}
+
+<div class="card border-success mx-auto" style="max-width:500px">
+  <div class="card-header bg-success text-white"><h5>Return Book</h5></div>
+  <div class="card-body">
+    <p>Return <strong>{{ issue.book.title }}</strong> from <strong>{{ issue.member.name }}</strong>?</p>
+    <p class="text-muted">Due date was: {{ issue.due_date }}</p>
+    <form method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-success">Yes, Mark Returned</button>
+      <a href="{% url 'issue-list' %}" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

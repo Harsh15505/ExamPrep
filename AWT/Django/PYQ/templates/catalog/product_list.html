@@ -1,0 +1,49 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>All Products</h2>
+    <span class="badge bg-secondary fs-6">{{ products|length }} products</span>
+</div>
+
+{% if products %}
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for product in products %}
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <span class="badge bg-primary mb-2">{{ product.category }}</span>
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text text-muted">{{ product.description|truncatewords:15 }}</p>
+                <!-- |truncatewords:15 — shows only first 15 words, adds "..." -->
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+                <div>
+                    <strong class="text-success fs-5">₹{{ product.price }}</strong>
+                    <br>
+                    <small class="text-muted">
+                        Stock:
+                        {% if product.available_stock > 0 %}
+                            <span class="text-success">{{ product.available_stock }} units</span>
+                        {% else %}
+                            <span class="text-danger">Out of Stock</span>
+                        {% endif %}
+                    </small>
+                </div>
+                <a href="{% url 'product-detail' product.pk %}" class="btn btn-outline-primary btn-sm">
+                    View Details
+                </a>
+                <!-- {% url 'product-detail' product.pk %} → /products/3/ -->
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% else %}
+<div class="alert alert-info text-center">
+    No products yet. <a href="{% url 'add-product' %}">Add the first one!</a>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'library/base.html' %}
+{% block content %}
+
+<h2 class="text-danger">⚠️ Overdue Books</h2>
+<table class="table table-bordered table-danger">
+    <thead class="table-dark">
+        <tr><th>Book</th><th>Member</th><th>Due Date</th><th>Days Overdue</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+        {% for issue in overdue %}
+        <tr>
+            <td>{{ issue.book.title }}</td>
+            <td>{{ issue.member.name }}</td>
+            <td>{{ issue.due_date }}</td>
+            <td>{{ issue.due_date|timesince }} ago</td>
+            <td><a href="{% url 'return-book' issue.pk %}" class="btn btn-success btn-sm">Mark Returned</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="text-center text-success">No overdue books! 🎉</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

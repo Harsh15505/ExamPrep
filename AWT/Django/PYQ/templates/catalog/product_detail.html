@@ -1,0 +1,62 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-7">
+
+    <div class="card shadow">
+      <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">🏷️ {{ product.name }}</h5>
+        <span class="badge bg-primary">{{ product.category }}</span>
+      </div>
+      <div class="card-body">
+
+        <table class="table table-bordered">
+          <tr>
+            <th width="35%">Product ID</th>
+            <td>{{ product.id }}</td>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <td>{{ product.name }}</td>
+          </tr>
+          <tr>
+            <th>Description</th>
+            <td>{{ product.description }}</td>
+          </tr>
+          <tr>
+            <th>Price</th>
+            <td><strong class="text-success">₹{{ product.price }}</strong></td>
+          </tr>
+          <tr>
+            <th>Category</th>
+            <td>{{ product.category }}</td>
+          </tr>
+          <tr>
+            <th>Available Stock</th>
+            <td>
+              {% if product.available_stock > 0 %}
+                <span class="badge bg-success">{{ product.available_stock }} units</span>
+              {% else %}
+                <span class="badge bg-danger">Out of Stock</span>
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th>Added On</th>
+            <td>{{ product.created_at|date:"d M Y, h:i A" }}</td>
+            <!-- |date filter formats DateTimeField -->
+            <!-- Output: "29 Apr 2025, 04:30 PM" -->
+          </tr>
+        </table>
+
+      </div>
+      <div class="card-footer">
+        <a href="{% url 'product-list' %}" class="btn btn-secondary">← Back to Products</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

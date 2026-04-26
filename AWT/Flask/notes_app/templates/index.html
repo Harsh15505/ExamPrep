@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+<!-- This tells Jinja2 to wrap this content inside the base.html layout -->
+
+{% block content %}
+<div class="row">
+    
+    <!-- Add Note Form -->
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Add a New Note</h5>
+                
+                <!-- Notice the action points to the /add route in app.py -->
+                <!-- The method is POST because we are sending data to the server -->
+                <form action="/add" method="POST">
+                    <div class="mb-3">
+                        <input type="text" name="title" class="form-control" placeholder="Note Title" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="content" class="form-control" rows="4" placeholder="Write your note here..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Save Note</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Display Notes -->
+    <div class="col-md-8">
+        <div class="row">
+            
+            <!-- Jinja2 For Loop: Iterates over the 'notes' variable passed from the index() route in app.py -->
+            {% for note in notes %}
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <!-- Jinja2 Variable Injection: Outputs the note's title and content -->
+                        <h5 class="card-title text-primary">{{ note.title }}</h5>
+                        <p class="card-text">{{ note.content }}</p>
+                    </div>
+                    <div class="card-footer bg-white border-top-0 d-flex justify-content-end gap-2">
+                        
+                        <!-- Edit Button: Points to /edit/<id> -->
+                        <a href="/edit/{{ note.id }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                        
+                        <!-- Delete Button: Points to /delete/<id> -->
+                        <a href="/delete/{{ note.id }}" class="btn btn-sm btn-outline-danger">Delete</a>
+                        
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <!-- Jinja2 Else: This renders ONLY if the 'notes' array is empty -->
+            <div class="col-12 text-center text-muted mt-5">
+                <h5>No notes found. Create one to get started!</h5>
+            </div>
+            {% endfor %}
+            
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'students/base.html' %}
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white"><h5>{{ title }}</h5></div>
+      <div class="card-body">
+        <form method="POST">
+          {% csrf_token %}
+          {% for field in form %}
+          <div class="mb-3">
+            <label class="form-label fw-semibold">{{ field.label }}</label>
+            {{ field }}
+            {% for error in field.errors %}
+              <div class="text-danger small mt-1">{{ error }}</div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-primary w-100">{{ btn }}</button>
+          <a href="{% url 'student-list' %}" class="btn btn-secondary w-100 mt-2">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

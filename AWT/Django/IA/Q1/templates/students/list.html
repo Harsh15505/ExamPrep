@@ -1,0 +1,43 @@
+{% extends 'students/base.html' %}
+{% block content %}
+
+<h2 class="mb-3">All Students</h2>
+
+<!-- Search by Course -->
+<form method="GET" action="{% url 'student-list' %}" class="d-flex mb-4">
+    <input type="text" name="course" value="{{ query }}"
+           class="form-control me-2" placeholder="Search by course...">
+    <button class="btn btn-primary">Search</button>
+    <a href="{% url 'student-list' %}" class="btn btn-secondary ms-2">Clear</a>
+</form>
+
+{% if students %}
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th><th>Name</th><th>Email</th>
+            <th>Course</th><th>Date of Joining</th><th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.id }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.course }}</td>
+            <td>{{ student.date_of_joining }}</td>
+            <td>
+                <a href="{% url 'edit-student' student.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{% url 'delete-student' student.pk %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p>Total: <strong>{{ students|length }}</strong> students</p>
+{% else %}
+<div class="alert alert-info">No students found{% if query %} for course "{{ query }}"{% endif %}.</div>
+{% endif %}
+
+{% endblock %}

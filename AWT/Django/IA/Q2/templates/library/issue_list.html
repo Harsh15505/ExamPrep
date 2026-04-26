@@ -1,0 +1,41 @@
+{% extends 'library/base.html' %}
+{% block content %}
+
+<h2>All Issue Records</h2>
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th><th>Book</th><th>Member</th>
+            <th>Issue Date</th><th>Due Date</th><th>Status</th><th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for issue in issues %}
+        <tr class="{% if not issue.returned and issue.due_date < today %}table-danger{% endif %}">
+            <td>{{ issue.id }}</td>
+            <td>{{ issue.book.title }}</td>
+            <td>{{ issue.member.name }}</td>
+            <td>{{ issue.issue_date }}</td>
+            <td>{{ issue.due_date }}</td>
+            <td>
+                {% if issue.returned %}
+                    <span class="badge bg-success">Returned ({{ issue.return_date }})</span>
+                {% else %}
+                    <span class="badge bg-warning text-dark">Issued</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if not issue.returned %}
+                    <a href="{% url 'return-book' issue.pk %}" class="btn btn-success btn-sm">Return</a>
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" class="text-center">No issue records found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

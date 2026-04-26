@@ -1,0 +1,39 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow">
+      <div class="card-header bg-success text-white">
+        <h5 class="mb-0">{{ title }}</h5>
+      </div>
+      <div class="card-body">
+
+        <form method="POST">
+          {% csrf_token %}
+          <!-- REQUIRED: Django CSRF protection token -->
+          <!-- Validates every POST request — missing token = 403 Forbidden -->
+
+          {% for field in form %}
+          <div class="mb-3">
+            <label class="form-label fw-semibold">{{ field.label }}</label>
+            {{ field }}
+            <!-- Renders the HTML widget defined in forms.py widgets dict -->
+            {% for error in field.errors %}
+              <div class="text-danger small mt-1">⚠ {{ error }}</div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-success">Save Product</button>
+            <a href="{% url 'product-list' %}" class="btn btn-outline-secondary">Cancel</a>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,146 @@
+/* App.css - Clean and readable UI */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f4f7f6;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.app-container {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 600px;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+}
+
+/* Form Styling */
+.task-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.task-form input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.task-form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.add-btn {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.add-btn:hover {
+  background-color: #219653;
+}
+
+/* Task List Styling */
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  transition: all 0.3s ease;
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+.task-item.completed {
+  background-color: #f9f9f9;
+  opacity: 0.8;
+}
+
+.task-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.badge {
+  font-size: 11px;
+  background-color: #3498db;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  width: fit-content;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* The requested Strikethrough effect */
+.strikethrough {
+  text-decoration: line-through;
+  color: #7f8c8d;
+}
+
+/* Action Buttons */
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.complete-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.complete-btn.undo {
+  background-color: #f39c12;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.empty-message {
+  text-align: center;
+  color: #95a5a6;
+  font-style: italic;
+  margin-top: 20px;
+}
