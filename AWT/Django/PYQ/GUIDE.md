@@ -68,6 +68,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',    # file path to SQLite DB file
     }
 }
+
+# Tell Django where to find project-level templates
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],   # ← Add this line
+        'APP_DIRS': True,
+        # ...
+    }
+]
 ```
 
 **In project `urls.py`:**
@@ -419,3 +429,27 @@ catalog/                           ← Django App
 | Operations | Full CRUD | **Insert + Retrieve only** |
 | Models | Student / Book+Member+IssueRecord | **Single Product model** |
 | Special features | Search, unique email, issue/return | **Detail view by ID** |
+
+---
+
+## 🛠️ Troubleshooting & Common Mistakes
+
+**1. `OperationalError: no such table: catalog_product`**
+- **Cause:** You created your `models.py` in the **root project directory** instead of inside the `catalog/` app folder, or you forgot to run migrations.
+- **Fix:** Ensure `models.py` is inside `catalog/`. Then run:
+  ```bash
+  python manage.py makemigrations catalog
+  python manage.py migrate
+  ```
+
+**2. `NameError: name 'include' is not defined`**
+- **Cause:** In `ecommerce_project/urls.py`, you used `include('catalog.urls')` but forgot to import the `include` function.
+- **Fix:** Update the import at the top of the file:
+  ```python
+  from django.urls import path, include
+  ```
+- **Warning:** Never use `include()` inside `catalog/urls.py` to point back to itself. This causes an infinite recursion error!
+
+**3. `TemplateDoesNotExist: catalog/product_list.html`**
+- **Cause:** Django doesn't know where to look for your template files.
+- **Fix:** If your `templates/` folder is in the root directory alongside `manage.py`, make sure to update `settings.py` so `DIRS` includes `[BASE_DIR / 'templates']`. Otherwise, place the templates strictly in `catalog/templates/catalog/`.
