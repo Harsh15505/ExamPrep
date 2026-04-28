@@ -1,0 +1,6 @@
+product_id,product_name,product_category,price
+P123,Wireless Mouse,Electronics,25.0
+P124,Hardcover Notebook,Stationery,10.0
+P125,Bluetooth Speaker,Electronics,45.0
+P126,Desk Lamp,Home,30.0
+P127,Pencil Set,Stationery,5.0
