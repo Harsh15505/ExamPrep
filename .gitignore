@@ -50,4 +50,5 @@ dist/
 dist-ssr/
 *.local
 
+# Docker images (too large for GitHub)
 *.tar
